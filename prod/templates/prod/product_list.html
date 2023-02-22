@@ -1,0 +1,33 @@
+{% extends 'prod/base.html' %}
+{% block content %}
+<div class="container">
+    <table class="table caption-top">
+        <caption>Продукты</caption>
+        <thead>
+        <tr>
+            <th scope="col">Наименование</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Версия</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+        <tr>
+            <td>{{object.name}}</td>
+            <td>{{object.price}}</td>
+            <td>{{object.description}}</td>
+            <td>{{object.category}}</td>
+            <td>{{object.version.version_number}}</td>
+            <td>
+                <a class="p-1 btn btn-primary" href="{% url 'prod:product_update' object.pk %}">Редактировать</a>
+                <a class="p-1 btn btn-danger" href="{% url 'prod:product_delete' object.pk %}">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
