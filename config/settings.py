@@ -139,3 +139,9 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/users/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL ='/'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'sdakhj@mail.ru'
+EMAIL_HOST_PASSWORD = 'FcbX3TVzJwLt4cNvr9AU'
+EMAIL_USE_SSL = True

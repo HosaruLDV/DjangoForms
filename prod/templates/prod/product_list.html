@@ -20,7 +20,7 @@
             <td>{{object.price}}</td>
             <td>{{object.description}}</td>
             <td>{{object.category}}</td>
-            <td>{{object.version.version_number}}</td>
+            <td>{{version.version_number}}</td>
             <td>
                 <a class="p-1 btn btn-primary" href="{% url 'prod:product_update' object.pk %}">Редактировать</a>
                 <a class="p-1 btn btn-danger" href="{% url 'prod:product_delete' object.pk %}">Удалить</a>

@@ -7,7 +7,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена продукта')
     description = models.TextField(verbose_name='Описание')
     category = models.CharField(max_length=100, verbose_name='Категория')
-
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE)
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
@@ -23,7 +23,6 @@ class Version(models.Model):
         (STATUS_ACTIVE, 'активна'),
         (STATUS_INACTIVE, 'неактивна'),
     )
-
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     version_number = models.IntegerField(verbose_name='Номер версии')
     version_name = models.CharField(max_length=250, verbose_name='Имя версии')
