@@ -1,0 +1,18 @@
+{% extends 'prod/base.html'%}
+{% block content %}
+
+<form method="post">
+    <div class="container">
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="p-2 btn btn-outline-primary bg-primary-subtle" type="submit">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

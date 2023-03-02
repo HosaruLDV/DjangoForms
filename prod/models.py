@@ -12,7 +12,7 @@ class Product(models.Model):
     name = models.CharField(max_length=250, verbose_name='Наименование продукта')
     price = models.IntegerField(verbose_name='Цена продукта')
     description = models.TextField(verbose_name='Описание')
-    category = models.CharField(max_length=100, verbose_name='Категория')
+    category = models.ForeignKey('Categories', on_delete=models.CASCADE)
     owner = models.ForeignKey('users.User', on_delete=models.CASCADE)
     status = models.CharField(choices=STATUSES, max_length=10, default=STATUS_FALSE, verbose_name='Признак публикации')
 
@@ -43,3 +43,12 @@ class Version(models.Model):
 
     def __str__(self):
         return f'{self.version_number} {self.version_name} {self.version_status}'
+
+
+class Categories(models.Model):
+
+    category = models.CharField(max_length=150, verbose_name='Категория', unique=True)
+    description = models.CharField(max_length=500, verbose_name='Описние')
+
+    def __str__(self):
+        return f'{self.category}'

@@ -1,14 +1,28 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
+from django.core.cache import cache
+
+from config import settings
 from prod.forms import ProductForm, VersionForm
-from prod.models import Product, Version
+from prod.models import Product, Version, Categories
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
+
+from prod.services import get_categories_from_cache
 
 
 class ProductListView(ListView):
     model = Product
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['category'] = Product.objects.all()
+        return context_data
 
 
 class ProductCreateView(CreateView):
@@ -27,6 +41,7 @@ class ProductCreateView(CreateView):
 class ProductDeleteView(UserPassesTestMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('prod:product')
+
     def test_func(self):
         product = self.get_object()
         return self.request.user.has_perm('moderator') or product.owner == self.request.user
@@ -62,3 +77,18 @@ class ProductUpdateView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         product = self.get_object()
         return self.request.user.has_perm('moderator') or product.owner == self.request.user
+
+
+class CategoryCreateView(CreateView):
+    model = Categories
+    fields = '__all__'
+    success_url = reverse_lazy('prod:category_list')
+
+
+class CategoryListView(ListView):
+    model = Categories
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['subjects'] = get_categories_from_cache()
+        return context_data

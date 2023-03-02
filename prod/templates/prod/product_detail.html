@@ -1,0 +1,21 @@
+{% extends 'prod/base.html'%}
+{% block content %}
+
+<body>
+<div class="card border-secondary mb-3" style="max-width: 18rem;">
+    <div class="card-header">{{object.category}}</div>
+    <div class="card-body text-secondary">
+        <h5 class="card-title">{{object.name}}</h5>
+        <p class="card-text">price {{object.price}}$</p>
+        <p class="card-text">{{object.description}}</p>
+    </div>
+    <a class="p-2 btn btn-outline-secondary"
+       href="{% url 'prod:product' %}">Назад</a>
+<div class="card-header">Категории</div>
+        {% for item in category %}
+            <p>{{item.category}}</p>
+        {% endfor %}
+</div>
+</body>
+
+{% endblock %}

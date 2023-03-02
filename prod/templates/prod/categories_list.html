@@ -1,0 +1,25 @@
+{% extends 'prod/base.html' %}
+{% block content %}
+<div class="container">
+    <table class="table caption-top">
+        <caption>Продукты</caption>
+        <thead>
+        <tr>
+            <th scope="col">Категория</th>
+            <th scope="col">Описание</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in subjects %}
+        <tr>
+            <td>{{object.category}}</td>
+            <td>{{object.description}}</td>
+            <td>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
